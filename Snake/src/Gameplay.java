@@ -32,7 +32,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener{
 	private int moves = 0;
 	private Timer timer;
 	private int delay = 100;
-	
+	private int score=0;
 	private ImageIcon food;
 
 	private ImageIcon titleImage;
@@ -121,7 +121,17 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener{
 				snakeimage.paintIcon(this,g,snakeXLength[i],snakeYLength[i]);
 
 			} 
+			
 
+		}
+		if(snakeYLength[0]==foodY && snakeXLength[0]==foodX)
+		{
+		//25, 75, 850, 575
+		int a = (25+(int)(Math.random()*(850-25)));
+		foodX = a-(a%25);
+		int b = (75+(int)(Math.random()*(625-75)));
+		foodY = b-(b%25);
+		length++;
 		}
 		g.dispose();
 	}
@@ -130,7 +140,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		
-		//System.out.println("action performed"+e.getSource());
+		System.out.println(length);
 		
 		//timer fires every 100ms, that means action performed is called every 100ms
 		//action performed updates the array values i.e the positions of the snake parts
@@ -155,15 +165,15 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener{
 					snakeXLength[r] = snakeXLength[r-1];
 				if(snakeXLength[r]>850)
 					snakeXLength[r] = 25;
-				if(snakeYLength[r]==foodY && snakeXLength[r]==foodX)
-				{
-				//25, 75, 850, 575
-				int a = (25+(int)(Math.random()*(850-25)));
-				foodX = a-(a%25);
-				int b = (75+(int)(Math.random()*(625-75)));
-				foodY = b-(b%25);
-				length++;
-				}
+//				if(snakeYLength[r]==foodY && snakeXLength[r]==foodX)
+//				{
+//				//25, 75, 850, 575
+//				int a = (25+(int)(Math.random()*(850-25)));
+//				foodX = a-(a%25);
+//				int b = (75+(int)(Math.random()*(625-75)));
+//				foodY = b-(b%25);
+//				length++;
+//				}
 			}
 			
 			repaint();
@@ -184,18 +194,19 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener{
 					snakeXLength[r] = snakeXLength[r-1];
 				if(snakeXLength[r]<25)
 					snakeXLength[r] = 850;
-				if(snakeYLength[r]==foodY && snakeXLength[r]==foodX)
-				{
-				//25, 75, 850, 575
-				int a = (25+(int)(Math.random()*(850-25)));
-				foodX = a-(a%25);
-				int b = (75+(int)(Math.random()*(625-75)));
-				foodY = b-(b%25);
-				length++;
-				}
-			}
+//				if(snakeYLength[r]==foodY && snakeXLength[r]==foodX)
+//				{
+//				//25, 75, 850, 575
+//				int a = (25+(int)(Math.random()*(850-25)));
+//				foodX = a-(a%25);
+//				int b = (75+(int)(Math.random()*(625-75)));
+//				foodY = b-(b%25);
+//				length++;
+//				}
+//			}
 			
 			repaint();
+		}
 		}
 		
 		if(up)
@@ -213,15 +224,15 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener{
 					snakeYLength[r] = snakeYLength[r-1];
 				if(snakeYLength[r]<75)
 					snakeYLength[r] = 625;
-				if(snakeYLength[r]==foodY && snakeXLength[r]==foodX)
-				{
-				//25, 75, 850, 575
-				int a = (25+(int)(Math.random()*(850-25)));
-				foodX = a-(a%25);
-				int b = (75+(int)(Math.random()*(625-75)));
-				foodY = b-(b%25);
-				length++;
-				}
+//				if(snakeYLength[r]==foodY && snakeXLength[r]==foodX)
+//				{
+//				//25, 75, 850, 575
+//				int a = (25+(int)(Math.random()*(850-25)));
+//				foodX = a-(a%25);
+//				int b = (75+(int)(Math.random()*(625-75)));
+//				foodY = b-(b%25);
+//				length++;
+//				}
 			}
 			
 			repaint();
@@ -243,28 +254,29 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener{
 					snakeYLength[r] = snakeYLength[r-1];
 				if(snakeYLength[r]>625)
 					snakeYLength[r] = 75;
-				if(snakeYLength[r]==foodY && snakeXLength[r]==foodX)
-					{
-					//25, 75, 850, 575
-					int a = (25+(int)(Math.random()*(850-25)));
-					foodX = a-(a%25);
-					int b = (75+(int)(Math.random()*(625-75)));
-					foodY = b-(b%25);
-					length++;
-					}
+//				if(snakeYLength[r]==foodY && snakeXLength[r]==foodX)
+//					{
+//					//25, 75, 850, 575
+//					int a = (25+(int)(Math.random()*(850-25)));
+//					foodX = a-(a%25);
+//					int b = (75+(int)(Math.random()*(625-75)));
+//					foodY = b-(b%25);
+//					length++;
+//					}
 			}
 			
 			
 			repaint();
-		}
 		
 		
+		
+	}
 	}
 
 	@Override
 	public void keyPressed(KeyEvent e) {
 		
-		System.out.println("key pressed");
+		//System.out.println("key pressed");
 		// TODO Auto-generated method stub
 		if(e.getKeyCode()==KeyEvent.VK_RIGHT){
 			moves++;
