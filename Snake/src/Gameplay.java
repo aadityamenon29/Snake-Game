@@ -1,4 +1,5 @@
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,6 +12,7 @@ import javax.swing.JPanel;
 
 public class Gameplay extends JPanel implements KeyListener, ActionListener{
 
+	private int high_score = 0;
 
 	//first index of both the arrays store the position of the head of the snake
 	private int[] snakeXLength = new int[750];
@@ -26,7 +28,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener{
 	private ImageIcon leftMouth;
 	private ImageIcon upMouth;
 	private ImageIcon downMouth;
-
+	private boolean flag=true;
 	private ImageIcon snakeimage;
 	private int length = 3;
 	private int moves = 0;
@@ -62,19 +64,32 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener{
 			snakeYLength[2] = 100;
 			snakeYLength[1] = 100;
 			snakeYLength[0] = 100;
+			
 
 		}
 		//first draw border for title image
 
 		g.setColor(Color.white);
 		g.drawRect(24,10,851,55);
-
+		
 		//draw image for title
 
 		titleImage = new ImageIcon("snaketitle.jpg");
 
 		titleImage.paintIcon(this,g,25,11);
-
+		//score
+				g.setColor(Color.WHITE);
+				g.setFont(new Font("arial", Font.PLAIN,14));
+				g.drawString("Scores: "+score, 780, 30);
+				
+				g.setColor(Color.WHITE);
+				g.setFont(new Font("arial", Font.PLAIN,14));
+				g.drawString("Hgih Score: "+high_score, 600, 30);
+				
+				
+				g.setColor(Color.WHITE);
+				g.setFont(new Font("arial", Font.PLAIN,14));
+				g.drawString("Length: "+length, 780, 50);
 		
 		//draw border for playing area and then set colour
 		g.setColor(Color.WHITE);
@@ -84,13 +99,16 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener{
 		g.fillRect(25, 75, 850, 575);			
 		
 		
+		
+		
+		
 		rightMouth = new ImageIcon("rightmouth.png");
 		rightMouth.paintIcon(this,g,snakeXLength[0],snakeYLength[0]);
 		
 		food = new ImageIcon("enemy.png");
 		food.paintIcon(this, g, foodX, foodY);
 
-		for (int i = 0; i < length; i++) {
+		for (int i = 0; i < length; i++) { 
 			if(i==0 && right)
 			{
 				rightMouth = new ImageIcon("rightmouth.png");
@@ -126,12 +144,29 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener{
 		}
 		if(snakeYLength[0]==foodY && snakeXLength[0]==foodX)
 		{
+			score++;
 		//25, 75, 850, 575
 		int a = (25+(int)(Math.random()*(850-25)));
 		foodX = a-(a%25);
 		int b = (75+(int)(Math.random()*(625-75)));
 		foodY = b-(b%25);
 		length++;
+		}
+		
+		for (int i = 1; i < length; i++) {
+			if(snakeXLength[i]==snakeXLength[0] && snakeYLength[i]==snakeYLength[0])
+			{
+				right=false;left=false;up=false;down=false;
+				g.setColor(Color.WHITE);
+				g.setFont(new Font("arial", Font.BOLD,50));
+				g.drawString("GAME OVER!", 300, 300	);
+				
+				g.setFont(new Font("arial", Font.BOLD,40));
+				g.drawString("Press space bar to restart.", 300, 360);
+				
+				flag=false;
+								
+			}
 		}
 		g.dispose();
 	}
@@ -278,7 +313,19 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener{
 		
 		//System.out.println("key pressed");
 		// TODO Auto-generated method stub
-		if(e.getKeyCode()==KeyEvent.VK_RIGHT){
+		
+		if(e.getKeyCode()==KeyEvent.VK_SPACE && flag==false){
+			moves=0;
+			length=3;
+			if(score>high_score)
+					high_score=score;
+			score = 0;
+			
+			flag=true;
+			repaint();
+		}
+		
+		if(e.getKeyCode()==KeyEvent.VK_RIGHT && flag){
 			moves++;
 			if(left==true)
 				right=false;
@@ -288,7 +335,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener{
 			down=false;
 		}
 		
-		if(e.getKeyCode()==KeyEvent.VK_LEFT){
+		if(e.getKeyCode()==KeyEvent.VK_LEFT && flag){
 			moves++;
 
 			left=true;
@@ -303,7 +350,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener{
 			down=false;
 		}
 		
-		if(e.getKeyCode()==KeyEvent.VK_UP){
+		if(e.getKeyCode()==KeyEvent.VK_UP && flag){
 			moves++;
 
 			up=true;
@@ -318,7 +365,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener{
 			left=false;
 		}
 		
-		if(e.getKeyCode()==KeyEvent.VK_DOWN){
+		if(e.getKeyCode()==KeyEvent.VK_DOWN && flag){
 			moves++;
 
 			down=true;
