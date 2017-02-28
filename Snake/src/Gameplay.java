@@ -1,3 +1,13 @@
+/*referred youtube tutorial : https://www.youtube.com/watch?v=_SqnzvJuKiA
+ * changes implemented by AM 
+ * 1. High score
+ * 2. Corrected a flaw. When space pressed , reset only if game was over and then space was pressed. Used flags 
+ * to correct this.
+ * 3. Used random function to generate new positions of food in multiples of 25 within given range instead of storing
+ * all possible values in an array.
+ * 4. Implemented a game pause feature (Press enter to pause the game). 
+ */
+
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -74,22 +84,14 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener{
 		
 		//draw image for title
 
-		titleImage = new ImageIcon("snaketitle.jpg");
-
+		//titleImage = new ImageIcon("ress/snaketitle.jpg");
+		//System.out.println(System.getProperty("java.class.path"));
+		//System.out.println(this.getClass().getResource("snaketitle.jpg"));
+		titleImage = new ImageIcon(this.getClass().getResource("snaketitle.jpg"));
+		
+		
 		titleImage.paintIcon(this,g,25,11);
-		//score
-				g.setColor(Color.WHITE);
-				g.setFont(new Font("arial", Font.PLAIN,14));
-				g.drawString("Scores: "+score, 780, 30);
-				
-				g.setColor(Color.WHITE);
-				g.setFont(new Font("arial", Font.PLAIN,14));
-				g.drawString("Hgih Score: "+high_score, 600, 30);
-				
-				
-				g.setColor(Color.WHITE);
-				g.setFont(new Font("arial", Font.PLAIN,14));
-				g.drawString("Length: "+length, 780, 50);
+	
 		
 		//draw border for playing area and then set colour
 		g.setColor(Color.WHITE);
@@ -98,44 +100,58 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener{
 		g.setColor(Color.black);
 		g.fillRect(25, 75, 850, 575);			
 		
+		//score
+		g.setColor(Color.WHITE);
+		g.setFont(new Font("arial", Font.PLAIN,14));
+		g.drawString("Scores: "+score, 780, 30);
 		
+		g.setColor(Color.WHITE);
+		g.setFont(new Font("arial", Font.PLAIN,14));
+		g.drawString("High Score: "+high_score, 600, 30);
 		
+		g.setColor(Color.WHITE);
+		g.setFont(new Font("arial", Font.BOLD,13));
+		g.drawString("Press Enter anytime to pause the game.", 30, 30);
 		
-		
-		rightMouth = new ImageIcon("rightmouth.png");
+		g.setColor(Color.WHITE);
+		g.setFont(new Font("arial", Font.PLAIN,14));
+		g.drawString("Length: "+length, 780, 50);
+		//rightMouth = new ImageIcon("ress/rightmouth.png");
+		rightMouth = new ImageIcon(this.getClass().getResource("rightmouth.png"));
 		rightMouth.paintIcon(this,g,snakeXLength[0],snakeYLength[0]);
 		
-		food = new ImageIcon("enemy.png");
+		food = new ImageIcon(this.getClass().getResource("enemy.png"));
 		food.paintIcon(this, g, foodX, foodY);
 
 		for (int i = 0; i < length; i++) { 
 			if(i==0 && right)
 			{
-				rightMouth = new ImageIcon("rightmouth.png");
+				//rightMouth = new ImageIcon("ress/rightmouth.png");
+				rightMouth = new ImageIcon(this.getClass().getResource("rightmouth.png"));
 				rightMouth.paintIcon(this,g,snakeXLength[i],snakeYLength[i]);
 			}
 
 			if(i==0 && left)
 			{
-				leftMouth = new ImageIcon("leftmouth.png");
+				leftMouth = new ImageIcon(this.getClass().getResource("leftmouth.png"));
 				leftMouth.paintIcon(this,g,snakeXLength[i],snakeYLength[i]);
 			}
 
 			if(i==0 && up)
 			{
-				upMouth = new ImageIcon("upmouth.png");
+				upMouth = new ImageIcon(this.getClass().getResource("upmouth.png"));
 				upMouth.paintIcon(this,g,snakeXLength[i],snakeYLength[i]);
 			}
 
 			if(i==0 && down)
 			{
-				downMouth = new ImageIcon("downmouth.png");
+				downMouth = new ImageIcon(this.getClass().getResource("downmouth.png"));
 				downMouth.paintIcon(this,g,snakeXLength[i],snakeYLength[i]);
 			}
 
 			if(i!=0)
 			{
-				snakeimage = new ImageIcon("snakeimage.png");
+				snakeimage = new ImageIcon(this.getClass().getResource("snakeimage.png"));
 				snakeimage.paintIcon(this,g,snakeXLength[i],snakeYLength[i]);
 
 			} 
@@ -151,6 +167,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener{
 		int b = (75+(int)(Math.random()*(625-75)));
 		foodY = b-(b%25);
 		length++;
+		repaint();
 		}
 		
 		for (int i = 1; i < length; i++) {
@@ -175,7 +192,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		
-		System.out.println(length);
+		//System.out.println(length);
 		
 		//timer fires every 100ms, that means action performed is called every 100ms
 		//action performed updates the array values i.e the positions of the snake parts
@@ -313,6 +330,16 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener{
 		
 		//System.out.println("key pressed");
 		// TODO Auto-generated method stub
+		
+		
+		
+		if(e.getKeyCode()==KeyEvent.VK_ENTER && flag==true){
+			right=false;
+			left=false;
+			up=false;
+			down=false;
+			repaint();
+		}
 		
 		if(e.getKeyCode()==KeyEvent.VK_SPACE && flag==false){
 			moves=0;
