@@ -1,0 +1,9 @@
+/*referred youtube tutorial : https://www.youtube.com/watch?v=_SqnzvJuKiA
+ * changes implemented by AM 
+ * 1. High score
+ * 2. Corrected a flaw. When space pressed , reset only if game was over and then space was pressed. Used flags 
+ * to correct this.
+ * 3. Used random function to generate new positions of food in multiples of 25 within given range instead of storing
+ * all possible values in an array.
+ * 4. Implemented a game pause feature (Press enter to pause the game). 
+ */
