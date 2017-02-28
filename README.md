@@ -8,3 +8,9 @@ If snake bites itself, the game ends. Restart the game by pressing space.
 Pause the game anytime using Enter key.
 
 High score is maintained for one session. 
+
+Downlaod the .jar file and play.
+
+Enjoy!
+
+-Aaditya 
