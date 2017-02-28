@@ -20,7 +20,8 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener{
 	private boolean right = false;
 	private boolean up = false;
 	private boolean down = false;
-
+	private int foodX=800;
+	private int foodY=600;
 	private ImageIcon rightMouth;
 	private ImageIcon leftMouth;
 	private ImageIcon upMouth;
@@ -31,7 +32,8 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener{
 	private int moves = 0;
 	private Timer timer;
 	private int delay = 100;
-
+	
+	private ImageIcon food;
 
 	private ImageIcon titleImage;
 	public Gameplay(){
@@ -73,16 +75,20 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener{
 
 		titleImage.paintIcon(this,g,25,11);
 
+		
 		//draw border for playing area and then set colour
 		g.setColor(Color.WHITE);
 		g.drawRect(24, 74, 851, 577);
 		//fill the rectangle with colour
 		g.setColor(Color.black);
 		g.fillRect(25, 75, 850, 575);			
-
+		
+		
 		rightMouth = new ImageIcon("rightmouth.png");
 		rightMouth.paintIcon(this,g,snakeXLength[0],snakeYLength[0]);
-
+		
+		food = new ImageIcon("enemy.png");
+		food.paintIcon(this, g, foodX, foodY);
 
 		for (int i = 0; i < length; i++) {
 			if(i==0 && right)
@@ -149,6 +155,15 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener{
 					snakeXLength[r] = snakeXLength[r-1];
 				if(snakeXLength[r]>850)
 					snakeXLength[r] = 25;
+				if(snakeYLength[r]==foodY && snakeXLength[r]==foodX)
+				{
+				//25, 75, 850, 575
+				int a = (25+(int)(Math.random()*(850-25)));
+				foodX = a-(a%25);
+				int b = (75+(int)(Math.random()*(625-75)));
+				foodY = b-(b%25);
+				length++;
+				}
 			}
 			
 			repaint();
@@ -169,6 +184,15 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener{
 					snakeXLength[r] = snakeXLength[r-1];
 				if(snakeXLength[r]<25)
 					snakeXLength[r] = 850;
+				if(snakeYLength[r]==foodY && snakeXLength[r]==foodX)
+				{
+				//25, 75, 850, 575
+				int a = (25+(int)(Math.random()*(850-25)));
+				foodX = a-(a%25);
+				int b = (75+(int)(Math.random()*(625-75)));
+				foodY = b-(b%25);
+				length++;
+				}
 			}
 			
 			repaint();
@@ -189,6 +213,15 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener{
 					snakeYLength[r] = snakeYLength[r-1];
 				if(snakeYLength[r]<75)
 					snakeYLength[r] = 625;
+				if(snakeYLength[r]==foodY && snakeXLength[r]==foodX)
+				{
+				//25, 75, 850, 575
+				int a = (25+(int)(Math.random()*(850-25)));
+				foodX = a-(a%25);
+				int b = (75+(int)(Math.random()*(625-75)));
+				foodY = b-(b%25);
+				length++;
+				}
 			}
 			
 			repaint();
@@ -210,7 +243,17 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener{
 					snakeYLength[r] = snakeYLength[r-1];
 				if(snakeYLength[r]>625)
 					snakeYLength[r] = 75;
+				if(snakeYLength[r]==foodY && snakeXLength[r]==foodX)
+					{
+					//25, 75, 850, 575
+					int a = (25+(int)(Math.random()*(850-25)));
+					foodX = a-(a%25);
+					int b = (75+(int)(Math.random()*(625-75)));
+					foodY = b-(b%25);
+					length++;
+					}
 			}
+			
 			
 			repaint();
 		}
