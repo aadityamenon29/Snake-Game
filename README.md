@@ -10,7 +10,6 @@ Pause the game anytime using the Enter key.
 High score is maintained for one session. 
 
 Downlaod the .jar file and play.
-
 Enjoy!
 
 -Aaditya 
