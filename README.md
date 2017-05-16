@@ -9,6 +9,10 @@ Pause the game anytime using the Enter key.
 
 High score is maintained for one session. 
 
+
+![alt text](https://raw.githubusercontent.com/aadityamenon29/Snake-game/master/path/to/snake.png)
+
+
 Downlaod the .jar file and play.
 Enjoy!
 
